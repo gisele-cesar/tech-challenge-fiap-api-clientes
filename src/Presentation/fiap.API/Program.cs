@@ -35,7 +35,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 builder.Services.AddHealthChecks();
 
-// Adiciona injeção de dependência no Application
+// Adiciona injeï¿½ï¿½o de dependï¿½ncia no Application
 builder.Services.AddHttpClient();
 builder.Services.AddApplicationModule();
 builder.Services.AddServicesModule();
@@ -50,15 +50,15 @@ builder.Services.AddSingleton<Func<IDbConnection>>(sp =>
 
     if (secret.Host is null)
     {
-        Console.WriteLine("Não foi possível recuperar a secret - Console.WriteLine"); ;
-        Log.Information("Não foi possível recuperar a secret Serilog");
-        throw new Exception("Não foi possível recuperar a secret - Lançada excecao");
+        Console.WriteLine("Nï¿½o foi possï¿½vel recuperar a secret - Console.WriteLine"); ;
+        Log.Information("Nï¿½o foi possï¿½vel recuperar a secret Serilog");
+        throw new Exception("Nï¿½o foi possï¿½vel recuperar a secret - Lanï¿½ada excecao");
     }
 
     connectionString = connectionString
     .Replace("__server__", secret.Host)
     .Replace("__port__", secret.Port)
-    .Replace("__db__", secret.DbInstanceIdentifier)
+    .Replace("__db__", "ClienteDB")
     .Replace("__userdb__", secret.UserName)
     .Replace("__senha__", secret.Password);
 
@@ -87,7 +87,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-Log.Information("Iniciando aplicação");
+Log.Information("Iniciando aplicaï¿½ï¿½o");
 app.Run();
 
 

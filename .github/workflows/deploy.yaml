@@ -2,7 +2,7 @@ name: Deploy to ECR
 
 on:
    push:
-     branches: [ feature/api-clientes ]
+     branches: [ develop ]
    pull_request:
      types: [opened, synchronize, reopened]
 
@@ -57,12 +57,12 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet tool install --global dotnet-sonarscanner
-        dotnet sonarscanner begin /k:"gisele-cesar_tech-challenge-fiap" /o:"projetos-fiap" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths=coverage.html 
-        dotnet build tech-challenge-fiap.sln --no-incremental
+        dotnet sonarscanner begin /k:"gisele-cesar_tech-challenge-fiap-api-clientes" /o:"projetos-fiap" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths=coverage.html 
+        dotnet build tech-challenge-fiap-api-clientes.sln --no-incremental
         dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
         dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-    - name: Rodando testes unitários e criando relatório
+    - name: Rodando testes unitï¿½rios e criando relatï¿½rio
       run: dotnet test src/Tests/fiap.Tests/fiap.Tests.csproj /p:CollectCoverage=true /p:IncludeTestAssembly=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile=\"**/Microsoft.NET.Test.Sdk.Program.cs\"
         
     - name: Upload coverage reports to Codecov
@@ -70,7 +70,7 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
-        files: /home/runner/work/tech-challenge-fiap/tech-challenge-fiap/src/Tests/fiap.Tests/coverage.opencover.xml
+        files: /home/runner/work/tech-challenge-fiap-api-clientes/tech-challenge-fiap-api-clientes/src/Tests/fiap.Tests/coverage.opencover.xml
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
