@@ -13,9 +13,7 @@ using Xunit;
 namespace fiap.Tests
 {
     public class BuilderTests
-    {
-         
-        
+    {      
 
         [Fact]
         public void AddModule_Test()
