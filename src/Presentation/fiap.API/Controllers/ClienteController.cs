@@ -4,12 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace fiap.API.Controllers
 {
+    /// <summary>
+    /// Controller for managing Cliente operations.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class ClienteController : ControllerBase
     {
         private readonly Serilog.ILogger _logger;
         private readonly IClienteApplication _clienteApplication;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClienteController"/> class.
+        /// </summary>
+        /// <param name="logger">The logger instance.</param>
+        /// <param name="clienteApplication">The cliente application service.</param>
         public ClienteController(Serilog.ILogger logger, IClienteApplication clienteApplication)
         {
             _logger = logger;
@@ -17,13 +26,12 @@ namespace fiap.API.Controllers
         }
 
         /// <summary>
-        /// Buscar clientes
+        /// Buscar clientes.
         /// </summary>
-        /// <returns>Lista de clientes cadastrados</returns>
-        /// <response code = "200">Retorna a lista de clientes cadastrados</response>
-        /// <response code = "400">Se houver erro na busca por clientes</response>
-        /// <response code = "500">Se houver erro de conexão com banco de dados</response>
-        // GET: api/<ClienteController>
+        /// <returns>Lista de clientes cadastrados.</returns>
+        /// <response code="200">Retorna a lista de clientes cadastrados.</response>
+        /// <response code="400">Se houver erro na busca por clientes.</response>
+        /// <response code="500">Se houver erro de conexão com banco de dados.</response>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -39,14 +47,13 @@ namespace fiap.API.Controllers
         }
 
         /// <summary>
-        /// Buscar cliente por id
+        /// Buscar cliente por id.
         /// </summary>
-        /// <param name="id">Id do cliente</param>
-        /// <returns>Cliente por id</returns>
-        /// <response code = "200">Retorna a busca do cliente por id se existir</response>
-        /// <response code = "400">Se o id do cliente não existir</response>
-        /// <response code = "500">Se houver erro de conexão com banco de dados</response>        
-        // GET api/<ClienteController>/5
+        /// <param name="id">Id do cliente.</param>
+        /// <returns>Cliente por id.</returns>
+        /// <response code="200">Retorna a busca do cliente por id se existir.</response>
+        /// <response code="400">Se o id do cliente não existir.</response>
+        /// <response code="500">Se houver erro de conexão com banco de dados.</response>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -54,7 +61,6 @@ namespace fiap.API.Controllers
             {
                 _logger.Information($"Buscando cliente por id: {id}");
                 return Ok(await _clienteApplication.Obter(id));
-
             }
             catch (Exception ex)
             {
@@ -63,13 +69,13 @@ namespace fiap.API.Controllers
         }
 
         /// <summary>
-        /// Buscar cliente por cpf
+        /// Buscar cliente por cpf.
         /// </summary>
-        /// <param name="cpf">CPF do cliente</param>
-        /// <returns>Cliente por cpf</returns>
-        /// <response code = "200">Retorna a busca do cliente por cpf se existir</response>
-        /// <response code = "400">Se o cpf do cliente não existir</response>
-        /// <response code = "500">Se houver erro de conexão com banco de dados</response>  
+        /// <param name="cpf">CPF do cliente.</param>
+        /// <returns>Cliente por cpf.</returns>
+        /// <response code="200">Retorna a busca do cliente por cpf se existir.</response>
+        /// <response code="400">Se o cpf do cliente não existir.</response>
+        /// <response code="500">Se houver erro de conexão com banco de dados.</response>
         [HttpGet("ObterPorCpf/{cpf}")]
         public async Task<IActionResult> ObterPorCpf(string cpf)
         {
@@ -85,7 +91,7 @@ namespace fiap.API.Controllers
         }
 
         /// <summary>
-        /// Cadastrar cliente
+        /// Cadastrar cliente.
         /// </summary>
         /// <remarks>
         /// Exemplo:
@@ -98,12 +104,11 @@ namespace fiap.API.Controllers
         ///     }
         /// 
         /// </remarks>
-        /// <param name="cliente"></param>
-        /// <returns>Um novo cliente cadastrado</returns>
-        /// <response code = "200">Retorna o novo cliente cadastrado</response>
-        /// <response code = "400">Se o cliente não for cadastrado</response>
-        /// <response code = "500">Se houver erro de conexão com banco de dados</response>        
-        // POST api/<ClienteController>
+        /// <param name="cliente">O objeto cliente pode ser criado.</param>
+        /// <returns>Um novo cliente cadastrado.</returns>
+        /// <response code="200">Retorna o novo cliente cadastrado.</response>
+        /// <response code="400">Se o cliente não for cadastrado.</response>
+        /// <response code="500">Se houver erro de conexão com banco de dados.</response>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Cliente cliente)
         {
@@ -122,7 +127,7 @@ namespace fiap.API.Controllers
         }
 
         /// <summary>
-        /// Alterar cadastro cliente
+        /// Alterar cadastro cliente.
         /// </summary>
         /// <remarks>
         /// Exemplo:
@@ -136,12 +141,11 @@ namespace fiap.API.Controllers
         ///     }
         ///     
         /// </remarks>
-        /// <param name="cliente"></param>
-        /// <returns>Cadstro cliente alterado</returns>
-        /// <response code = "200">Retorna o cadastrado do cliente alterado</response>
-        /// <response code = "400">Se houver erro ao alterar o cadastro do cliente</response>
-        /// <response code = "500">Se houver erro de conexão com banco de dados</response> 
-        // PUT api/<ClienteController>/5
+        /// <param name="cliente">O objeto cliente pode ser atualizado.</param>
+        /// <returns>Cadastro cliente alterado.</returns>
+        /// <response code="200">Retorna o cadastrado do cliente alterado.</response>
+        /// <response code="400">Se houver erro ao alterar o cadastro do cliente.</response>
+        /// <response code="500">Se houver erro de conexão com banco de dados.</response>
         [HttpPut()]
         public async Task<IActionResult> Put([FromBody] Cliente cliente)
         {
